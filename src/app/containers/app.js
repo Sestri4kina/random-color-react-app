@@ -1,18 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import { Button } from '../components/button';
 import '../css/app.css';
 
-export default class Random extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { color: [135, 19, 119]};
-    }
-    handleClick() {
-        this.setState({
-            color: this.chooseColor()
-        });
-    }
+import changeColor from '../actions/index';
 
+class Random extends React.Component {
     componentDidMount() {
         this.applyColor();
     }
@@ -25,36 +19,42 @@ export default class Random extends React.Component {
         return (
             <div>
             <h1 className={this.isLight() ? 'white' : 'black'}>
-        Your color is {this.formatColor(this.state.color)}.
+        Your color is {this.formatColor(this.props.color)}.
     </h1>
         <Button
         light={this.isLight()}
-        onClick={this.handleClick.bind(this)}
+        onClick={() => this.props.changeColor()}
         />
     </div>
     );
     }
 
     //custom functions
-    formatColor(ary) {
-        return 'rgb(' + ary.join(', ') + ')';
+    formatColor(arr) {
+      return 'rgb(' + arr.join(',') + ')';
     }
 
     isLight() {
-        var rgb = this.state.color;
-        return rgb.reduce(function(a,b){ return a+b;}) < 127 * 3;
+      var rgb = this.props.color;
+      return rgb.reduce(function(a,b){ return a+b;}) < 127 * 3;
     }
 
     applyColor() {
-        var color = this.formatColor(this.state.color);
+        var color = this.formatColor(this.props.color);
         document.body.style.background = color;
     }
-
-    chooseColor() {
-        for (var i = 0, random = []; i < 3; i++) {
-            random.push(Math.floor(Math.random()*256));
-        }
-        return random;
-    }
-
 }
+
+const mapStateToProps = (state) => {
+  return {color: state.color};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    changeColor: () => {
+      dispatch(changeColor());
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Random);

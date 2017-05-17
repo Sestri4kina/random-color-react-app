@@ -3,9 +3,14 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from "react-redux";
+
 import Random from './containers/app';
+import store from "./store";
 
 ReactDOM.render(
-<Random />,
+  <Provider store={store}>
+    <Random />
+  </Provider>,
     document.getElementById('app')
 );
