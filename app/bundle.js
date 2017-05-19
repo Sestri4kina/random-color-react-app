@@ -59,11 +59,11 @@
 	
 	var _reactRedux = __webpack_require__(/*! react-redux */ 178);
 	
-	var _app = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./containers/app\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _app = __webpack_require__(/*! ./containers/app.js */ 224);
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _store = __webpack_require__(/*! ./store */ 225);
+	var _store = __webpack_require__(/*! ./store */ 233);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
@@ -25309,8 +25309,584 @@
 	}
 
 /***/ },
-/* 224 */,
+/* 224 */
+/*!***********************************!*\
+  !*** ./src/app/containers/app.js ***!
+  \***********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(/*! react-redux */ 178);
+	
+	var _button = __webpack_require__(/*! ../components/button */ 225);
+	
+	__webpack_require__(/*! ../css/app.css */ 230);
+	
+	var _index = __webpack_require__(/*! ../actions/index */ 232);
+	
+	var _index2 = _interopRequireDefault(_index);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Random = function (_React$Component) {
+	    _inherits(Random, _React$Component);
+	
+	    function Random() {
+	        _classCallCheck(this, Random);
+	
+	        return _possibleConstructorReturn(this, (Random.__proto__ || Object.getPrototypeOf(Random)).apply(this, arguments));
+	    }
+	
+	    _createClass(Random, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.applyColor();
+	        }
+	    }, {
+	        key: 'componentDidUpdate',
+	        value: function componentDidUpdate(prevProps, prevState) {
+	            this.applyColor();
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+	
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h1',
+	                    { className: this.isLight() ? 'white' : 'black' },
+	                    'Your color is ',
+	                    this.formatColor(this.props.color),
+	                    '.'
+	                ),
+	                _react2.default.createElement(_button.Button, {
+	                    light: this.isLight(),
+	                    onClick: function onClick() {
+	                        return _this2.props.changeColor();
+	                    }
+	                })
+	            );
+	        }
+	
+	        //custom functions
+	
+	    }, {
+	        key: 'formatColor',
+	        value: function formatColor(arr) {
+	            return 'rgb(' + arr.join(',') + ')';
+	        }
+	    }, {
+	        key: 'isLight',
+	        value: function isLight() {
+	            var rgb = this.props.color;
+	            return rgb.reduce(function (a, b) {
+	                return a + b;
+	            }) < 127 * 3;
+	        }
+	    }, {
+	        key: 'applyColor',
+	        value: function applyColor() {
+	            var color = this.formatColor(this.props.color);
+	            document.body.style.background = color;
+	        }
+	    }]);
+	
+	    return Random;
+	}(_react2.default.Component);
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	    return { color: state.color };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	    return {
+	        changeColor: function changeColor() {
+	            dispatch((0, _index2.default)());
+	        }
+	    };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Random);
+
+/***/ },
 /* 225 */
+/*!**************************************!*\
+  !*** ./src/app/components/button.js ***!
+  \**************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.Button = undefined;
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	__webpack_require__(/*! ../css/button.css */ 226);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Button = exports.Button = function Button(props) {
+	  return _react2.default.createElement(
+	    'button',
+	    {
+	      className: props.light ? 'light-button' : 'dark-button',
+	      onClick: props.onClick },
+	    'Refresh color'
+	  );
+	};
+
+/***/ },
+/* 226 */
+/*!********************************!*\
+  !*** ./src/app/css/button.css ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(/*! !./../../../~/css-loader!./button.css */ 227);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(/*! ./../../../~/style-loader/addStyles.js */ 229)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./button.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./button.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 227 */
+/*!***********************************************!*\
+  !*** ./~/css-loader!./src/app/css/button.css ***!
+  \***********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 228)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".light-button {\r\n    background-color: rgba(255,255,255,0.5);\r\n    color: rgb(0,0,0);\r\n}\r\n\r\n.dark-button {\r\n    background-color: rgba(0,0,0,0.5);\r\n    color: rgb(255,255,255);\r\n}", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 228 */
+/*!**************************************!*\
+  !*** ./~/css-loader/lib/css-base.js ***!
+  \**************************************/
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+	
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+	
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 229 */
+/*!*************************************!*\
+  !*** ./~/style-loader/addStyles.js ***!
+  \*************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0,
+		styleElementsInsertedAtTop = [];
+	
+	module.exports = function(list, options) {
+		if(true) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+	
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+	
+		// By default, add <style> tags to the bottom of <head>.
+		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+	
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+	
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+	
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+	
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+	
+	function insertStyleElement(options, styleElement) {
+		var head = getHeadElement();
+		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+		if (options.insertAt === "top") {
+			if(!lastStyleElementInsertedAtTop) {
+				head.insertBefore(styleElement, head.firstChild);
+			} else if(lastStyleElementInsertedAtTop.nextSibling) {
+				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+			} else {
+				head.appendChild(styleElement);
+			}
+			styleElementsInsertedAtTop.push(styleElement);
+		} else if (options.insertAt === "bottom") {
+			head.appendChild(styleElement);
+		} else {
+			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		}
+	}
+	
+	function removeStyleElement(styleElement) {
+		styleElement.parentNode.removeChild(styleElement);
+		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+		if(idx >= 0) {
+			styleElementsInsertedAtTop.splice(idx, 1);
+		}
+	}
+	
+	function createStyleElement(options) {
+		var styleElement = document.createElement("style");
+		styleElement.type = "text/css";
+		insertStyleElement(options, styleElement);
+		return styleElement;
+	}
+	
+	function createLinkElement(options) {
+		var linkElement = document.createElement("link");
+		linkElement.rel = "stylesheet";
+		insertStyleElement(options, linkElement);
+		return linkElement;
+	}
+	
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+	
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement(options));
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement(options);
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement(options);
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+			};
+		}
+	
+		update(obj);
+	
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+	
+	var replaceText = (function () {
+		var textStore = [];
+	
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+	
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+	
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+	
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+	
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+	
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+	
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var sourceMap = obj.sourceMap;
+	
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+	
+		var blob = new Blob([css], { type: "text/css" });
+	
+		var oldSrc = linkElement.href;
+	
+		linkElement.href = URL.createObjectURL(blob);
+	
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
+
+/***/ },
+/* 230 */
+/*!*****************************!*\
+  !*** ./src/app/css/app.css ***!
+  \*****************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(/*! !./../../../~/css-loader!./app.css */ 231);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(/*! ./../../../~/style-loader/addStyles.js */ 229)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./app.css", function() {
+				var newContent = require("!!./../../../node_modules/css-loader/index.js!./app.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 231 */
+/*!********************************************!*\
+  !*** ./~/css-loader!./src/app/css/app.css ***!
+  \********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 228)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "html, body {\r\n    margin: 0;\r\n    height: 100%;\r\n}\r\n\r\nbody {\r\n    background-color: #ffffff;\r\n    font-family: Helvetica, Arial, sans-serif;\r\n    text-align: center;\r\n}\r\n\r\n#app {\r\n    position: relative;\r\n    height: 100%;\r\n    width: 100%;\r\n    padding-top: 10px;\r\n}\r\n\r\n#app div {\r\n    width: 100%;\r\n}\r\n\r\n#app div div {\r\n    height: 100%;\r\n}\r\n\r\n#app div div div {\r\n    position: relative;\r\n    height: auto;\r\n}\r\n\r\nh1, h2 {\r\n    margin-left: 5%;\r\n    margin-right: 5%;\r\n}\r\n\r\nbutton {\r\n    border-radius: 8px;\r\n    padding: 15px 32px;\r\n    text-align: center;\r\n    text-decoration: none;\r\n    display: inline-block;\r\n    font-size: 16px;\r\n    font-family: 'Oxygen', sans-serif;\r\n    letter-spacing: 2px;\r\n}\r\n\r\n.black {\r\n    color: black;\r\n}\r\n\r\n.white {\r\n    color: white;\r\n}\r\n", ""]);
+	
+	// exports
+
+
+/***/ },
+/* 232 */
+/*!**********************************!*\
+  !*** ./src/app/actions/index.js ***!
+  \**********************************/
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = changeColor;
+	function changeColor() {
+	  return {
+	    type: "CHANGE_COLOR"
+	  };
+	}
+
+/***/ },
+/* 233 */
 /*!**************************!*\
   !*** ./src/app/store.js ***!
   \**************************/
@@ -25324,20 +25900,18 @@
 	
 	var _redux = __webpack_require__(/*! redux */ 197);
 	
-	var _reduxLogger = __webpack_require__(/*! redux-logger */ 226);
+	var _reduxLogger = __webpack_require__(/*! redux-logger */ 234);
 	
-	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
-	
-	var _index = __webpack_require__(/*! ./reducers/index */ 232);
+	var _index = __webpack_require__(/*! ./reducers/index */ 240);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = (0, _redux.createStore)(_index2.default, {}, applyMiddleware((0, _reduxLogger2.default)()));
+	exports.default = (0, _redux.createStore)(_index2.default, { color: [135, 19, 119] }, (0, _redux.applyMiddleware)((0, _reduxLogger.createLogger)()));
 
 /***/ },
-/* 226 */
+/* 234 */
 /*!*************************************!*\
   !*** ./~/redux-logger/lib/index.js ***!
   \*************************************/
@@ -25352,11 +25926,11 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _core = __webpack_require__(/*! ./core */ 227);
+	var _core = __webpack_require__(/*! ./core */ 235);
 	
-	var _helpers = __webpack_require__(/*! ./helpers */ 228);
+	var _helpers = __webpack_require__(/*! ./helpers */ 236);
 	
-	var _defaults = __webpack_require__(/*! ./defaults */ 231);
+	var _defaults = __webpack_require__(/*! ./defaults */ 239);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -25484,7 +26058,7 @@
 	exports.default = defaultLogger;
 
 /***/ },
-/* 227 */
+/* 235 */
 /*!************************************!*\
   !*** ./~/redux-logger/lib/core.js ***!
   \************************************/
@@ -25500,9 +26074,9 @@
 	
 	exports.printBuffer = printBuffer;
 	
-	var _helpers = __webpack_require__(/*! ./helpers */ 228);
+	var _helpers = __webpack_require__(/*! ./helpers */ 236);
 	
-	var _diff = __webpack_require__(/*! ./diff */ 229);
+	var _diff = __webpack_require__(/*! ./diff */ 237);
 	
 	var _diff2 = _interopRequireDefault(_diff);
 	
@@ -25635,7 +26209,7 @@
 	}
 
 /***/ },
-/* 228 */
+/* 236 */
 /*!***************************************!*\
   !*** ./~/redux-logger/lib/helpers.js ***!
   \***************************************/
@@ -25662,7 +26236,7 @@
 	var timer = exports.timer = typeof performance !== "undefined" && performance !== null && typeof performance.now === "function" ? performance : Date;
 
 /***/ },
-/* 229 */
+/* 237 */
 /*!************************************!*\
   !*** ./~/redux-logger/lib/diff.js ***!
   \************************************/
@@ -25675,7 +26249,7 @@
 	});
 	exports.default = diffLogger;
 	
-	var _deepDiff = __webpack_require__(/*! deep-diff */ 230);
+	var _deepDiff = __webpack_require__(/*! deep-diff */ 238);
 	
 	var _deepDiff2 = _interopRequireDefault(_deepDiff);
 	
@@ -25764,7 +26338,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 230 */
+/* 238 */
 /*!******************************!*\
   !*** ./~/deep-diff/index.js ***!
   \******************************/
@@ -26196,7 +26770,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 231 */
+/* 239 */
 /*!****************************************!*\
   !*** ./~/redux-logger/lib/defaults.js ***!
   \****************************************/
@@ -26250,7 +26824,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 232 */
+/* 240 */
 /*!***********************************!*\
   !*** ./src/app/reducers/index.js ***!
   \***********************************/
@@ -26261,9 +26835,6 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
 	var chooseColor = function chooseColor() {
 	  for (var i = 0, random = []; i < 3; i++) {
 	    random.push(Math.floor(Math.random() * 256));
@@ -26271,7 +26842,7 @@
 	  return random;
 	};
 	
-	var backgroundColor = function backgroundColor() {
+	exports.default = function () {
 	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
 	    color: [135, 19, 119]
 	  };
@@ -26279,16 +26850,15 @@
 	
 	  switch (action.type) {
 	    case "CHANGE_COLOR":
-	      state = _extends({}, state, {
+	      state = {
 	        color: chooseColor()
-	      });
+	      };
+	      return state;
 	      break;
 	    default:
 	      return state;
 	  }
 	};
-	
-	exports.default = backgroundColor;
 
 /***/ }
 /******/ ]);
